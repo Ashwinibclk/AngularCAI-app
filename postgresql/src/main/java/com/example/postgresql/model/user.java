@@ -1,18 +1,25 @@
 
 package com.example.postgresql.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.http.ResponseEntity;
 
 @Entity
 
-@Table(name="user",schema="")
+@Table(name="usera",schema="")
 public class user {
     public user(){}
 
@@ -29,7 +36,9 @@ public class user {
     @Column(name="isactive")
     private String isactive;
 
-    
+   /*  @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id"))
+    private Set<role> roles = new HashSet<>();*/
 
     public user(Long id, String username, String email, String role,Boolean isactive) {
         this.id = id;
@@ -78,4 +87,6 @@ public class user {
     public void setisactive(String isactive) {
         this.isactive = isactive;
     }
+
+   
 }
