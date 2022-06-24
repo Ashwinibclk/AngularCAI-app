@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.lang.StackWalker.Option;
 import java.net.URI;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/users")
 public class userController {
 
@@ -43,7 +47,7 @@ public class userController {
     }  
 
 
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}")
  public user replaceuUser(@RequestBody user newEmployee, @PathVariable Long id) {
     
     return this.UserRepository.findById(id)
@@ -71,5 +75,17 @@ public class userController {
     return this.UserRepository.findById(id);
       
   }
+
+  
+
+  @DeleteMapping("/delete")
+  public void deleteAll() {
+
+		for (user element : this.UserRepository.findAll()) {
+			this.UserRepository.delete(element);
+		}
+	}
+
+  
 }
 
